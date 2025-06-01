@@ -6,7 +6,7 @@
 /*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/01 15:32:54 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/01 18:18:29 by blessed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # include <pthread.h>
 
 typedef struct s_args	t_args;
+
+# define FALSE 0
+# define TRUE 1
+# define ERROR 1
+# define SUCCESS 0
 
 typedef struct s_philo
 {
@@ -42,5 +47,8 @@ struct s_args
 	pthread_mutex_t	*sticks;
 	t_philo			*philos;
 };
+
+int	ft_isnemeric(char *s);
+int	ft_atoi(const char *str);
 
 #endif
