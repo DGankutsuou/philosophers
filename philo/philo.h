@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/01 11:10:11 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/01 15:32:54 by blessed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ struct s_args
 	int				time_to_sleep;
 	int				minimum_meals;
 	int				someone_dead;
+	int				end_of_story;
 	pthread_mutex_t	*sticks;
 	t_philo			*philos;
 };
