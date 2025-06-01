@@ -6,7 +6,7 @@
 /*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/01 18:31:56 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/01 18:52:52 by blessed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static int	validate_args(char **argv)
 	index = 0;
 	while (argv[index] != NULL)
 	{
-		if (ft_isnemeric(argv[index]) == FALSE || ft_atoi(argv[index] < 1))
+		if (ft_isnemeric(argv[index]) == FALSE || ft_atoi(argv[index]) < 1)
 			return (ERROR);
 		index++;
 	}
-	if (index < 3 || index > 4)
+	if (index < 4 || index > 5)
 		return (ERROR);
 	return (SUCCESS);
 }
@@ -37,6 +37,7 @@ static int	init_args(char **argv, t_args **args)
 	(*args)->time_to_die = ft_atoi(argv[1]);
 	(*args)->time_to_eat = ft_atoi(argv[2]);
 	(*args)->time_to_sleep = ft_atoi(argv[3]);
+	(*args)->minimum_meals = -1;
 	if (argv[4] != NULL)
 		(*args)->minimum_meals = ft_atoi(argv[4]);
 	return (SUCCESS);
@@ -46,10 +47,16 @@ int	main(int argc, char **argv)
 {
 	t_args	*args;
 
+	(void)argc;
 	if (init_args(argv + 1, &args))
 	{
 		write (STDERR_FILENO, "error: invalid arguments\n", 26);
-		return (ERROR);
+		return (free (args), ERROR);
 	}
-	printf("- %d -\n", );
+	printf("- %d -\n", args->number_of_philos);
+	printf("- %d -\n", args->time_to_die);
+	printf("- %d -\n", args->time_to_eat);
+	printf("- %d -\n", args->time_to_sleep);
+	printf("- %d -\n", args->minimum_meals);
+	return (free (args), SUCCESS);
 }

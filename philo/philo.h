@@ -6,7 +6,7 @@
 /*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/01 18:18:29 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/01 18:48:08 by blessed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include <pthread.h>
 
 typedef struct s_args	t_args;
