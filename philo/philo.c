@@ -6,48 +6,48 @@
 /*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:31 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/03 10:05:04 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/03 17:28:06 by blessed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	*left_handed_philo(t_philo philo)
+static void	*left_handed_philo(t_philo *philo)
 {
 	while (TRUE)
 	{
-		pthread_mutex_lock(&philo.left_stick);
-		printf ("%ld %d has taken a fork", (long)0, philo.nr);
-		pthread_mutex_lock(&philo.right_stick);
-		printf ("%ld %d has taken a fork", (long)0, philo.nr);
-		printf ("%ld %d is eating", (long)0, philo.nr);
-		usleep(philo.args->time_to_eat * 1000);
-		pthread_mutex_unlock(&philo.left_stick);
-		pthread_mutex_unlock(&philo.right_stick);
-		printf ("%ld %d is sleeping", (long)0, philo.nr);
-		usleep(philo.args->time_to_sleep * 1000);
-		printf ("%ld %d is thinking", (long)0, philo.nr);
+		pthread_mutex_lock(&philo->left_stick);
+		printf ("%ld %d has taken a fork", (long)0, philo->nr);
+		pthread_mutex_lock(&philo->right_stick);
+		printf ("%ld %d has taken a fork", (long)0, philo->nr);
+		printf ("%ld %d is eating", (long)0, philo->nr);
+		usleep(philo->args->time_to_eat * 1000);
+		pthread_mutex_unlock(&philo->left_stick);
+		pthread_mutex_unlock(&philo->right_stick);
+		printf ("%ld %d is sleeping", (long)0, philo->nr);
+		usleep(philo->args->time_to_sleep * 1000);
+		printf ("%ld %d is thinking", (long)0, philo->nr);
 		exit (0);
 	}
 	return (NULL);
 }
 
-static void	*right_handed_philo(t_philo philo)
+static void	*right_handed_philo(t_philo *philo)
 {
 	while (TRUE)
 	{
-		pthread_mutex_lock(&philo.right_stick);
-		printf ("%ld %d has taken a fork", (long)0, philo.nr);
-		pthread_mutex_lock(&philo.left_stick);
-		printf ("%ld %d has taken a fork", (long)0, philo.nr);
-		printf ("%ld %d is eating", (long)0, philo.nr);
-		usleep(philo.args->time_to_eat * 1000);
-		pthread_mutex_unlock(&philo.left_stick);
-		pthread_mutex_unlock(&philo.right_stick);
-		printf ("%ld %d is sleeping", (long)0, philo.nr);
-		usleep(philo.args->time_to_sleep * 1000);
-		printf ("%ld %d is thinking", (long)0, philo.nr);
-		exit (0);
+		pthread_mutex_lock(&philo->right_stick);
+		printf ("%ld %d has taken a fork", (long)0, philo->nr);
+		pthread_mutex_lock(&philo->left_stick);
+		printf ("%ld %d has taken a fork", (long)0, philo->nr);
+		printf ("%ld %d is eating", (long)0, philo->nr);
+		usleep(philo->args->time_to_eat * 1000);
+		pthread_mutex_unlock(&philo->left_stick);
+		pthread_mutex_unlock(&philo->right_stick);
+		printf ("%ld %d is sleeping", (long)0, philo->nr);
+		usleep(philo->args->time_to_sleep * 1000);
+		printf ("%ld %d is thinking", (long)0, philo->nr);
+		return (NULL);
 	}
 	return (NULL);
 }
@@ -58,9 +58,9 @@ void	*life_cycle(void *data)
 
 	philo = (t_philo *)data;
 	if (philo->args->number_of_philos % 2 == 0)
-		return (left_handed_philo(*philo));
+		return (left_handed_philo(philo));
 	else
-		return (right_handed_philo(*philo));
+		return (right_handed_philo(philo));
 	return (NULL);
 }
 
