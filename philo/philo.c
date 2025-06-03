@@ -6,7 +6,7 @@
 /*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:31 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/02 12:21:01 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/03 10:05:04 by blessed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	*left_handed_philo(t_philo philo)
 		printf ("%ld %d is sleeping", (long)0, philo.nr);
 		usleep(philo.args->time_to_sleep * 1000);
 		printf ("%ld %d is thinking", (long)0, philo.nr);
+		exit (0);
 	}
 	return (NULL);
 }
@@ -46,6 +47,7 @@ static void	*right_handed_philo(t_philo philo)
 		printf ("%ld %d is sleeping", (long)0, philo.nr);
 		usleep(philo.args->time_to_sleep * 1000);
 		printf ("%ld %d is thinking", (long)0, philo.nr);
+		exit (0);
 	}
 	return (NULL);
 }
@@ -69,7 +71,12 @@ void	action(t_args *args)
 	idx = 0;
 	while (args->number_of_philos > idx)
 	{
-		pthread_create(&args->philos[idx].thread_id, NULL, life_cycle, &args->philos[idx]);
+		if (pthread_create(&args->philos[idx].thread_id, \
+			NULL, life_cycle, &args->philos[idx]) == -1)
+			{
+				printf ("Error: failed to creat thread\n");
+				return ;
+			}
 		idx++;
 	}
 	idx = 0;
