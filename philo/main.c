@@ -6,7 +6,7 @@
 /*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/01 21:31:24 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/02 12:24:17 by blessed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,32 @@ static int	validate_args(char **argv)
 			return (ERROR);
 		index++;
 	}
-	if (index < 4 || index > 5)
+	if (index < 4 || index > 5 || ft_atoi(argv[0]) < 2)
 		return (ERROR);
 	return (SUCCESS);
+}
+
+static void	init_philos_and_sticks(t_args **args)
+{
+	int	idx;
+
+	idx = 0;
+	while (idx < (*args)->number_of_philos)
+	{
+		(*args)->philos[idx].args = *args;
+		(*args)->philos[idx].nr = idx + 1;
+		(*args)->philos[idx].meals_counter = 0;
+		(*args)->philos[idx].last_time_eaten = 0;
+		(*args)->philos[idx].left_stick = (*args)->sticks[idx];
+		(*args)->philos[idx].right_stick = (*args)->sticks[(idx + 1) % 5];
+		idx++;
+	}
+	idx = 0;
+	while (idx < (*args)->number_of_philos)
+	{
+		pthread_mutex_init(&(*args)->sticks[idx], NULL);
+		idx++;
+	}
 }
 
 static int	init_args(char **argv, t_args **args)
@@ -40,6 +63,12 @@ static int	init_args(char **argv, t_args **args)
 	(*args)->minimum_meals = -1;
 	if (argv[4] != NULL)
 		(*args)->minimum_meals = ft_atoi(argv[4]);
+	(*args)->someone_dead = 0;
+	(*args)->sticks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
+		* (*args)->number_of_philos);
+	(*args)->philos = (t_philo *)malloc(sizeof(pthread_mutex_t) \
+		* (*args)->number_of_philos);
+	init_philos_and_sticks(args);
 	return (SUCCESS);
 }
 
@@ -51,12 +80,8 @@ int	main(int argc, char **argv)
 	if (init_args(argv + 1, &args))
 	{
 		write (STDERR_FILENO, "error: invalid arguments\n", 26);
-		return (free (args), ERROR);
+		return (ERROR);
 	}
-	printf("- %d -\n", args->number_of_philos);
-	printf("- %d -\n", args->time_to_die);
-	printf("- %d -\n", args->time_to_eat);
-	printf("- %d -\n", args->time_to_sleep);
-	printf("- %d -\n", args->minimum_meals);
-	return (free (args), SUCCESS);
+	action(args);
+	return (SUCCESS);
 }

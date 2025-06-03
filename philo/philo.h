@@ -6,7 +6,7 @@
 /*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/01 18:48:08 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/02 12:23:45 by blessed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <pthread.h>
+# include <sys/time.h>
 
 typedef struct s_args	t_args;
 
@@ -28,7 +29,7 @@ typedef struct s_args	t_args;
 typedef struct s_philo
 {
 	pthread_t		thread_id;
-	int				sr;
+	int				nr;
 	unsigned long	last_time_eaten;
 	int				meals_counter;
 	pthread_mutex_t	left_stick;
@@ -49,7 +50,8 @@ struct s_args
 	t_philo			*philos;
 };
 
-int	ft_isnemeric(char *s);
-int	ft_atoi(const char *str);
+int		ft_isnemeric(char *s);
+int		ft_atoi(const char *str);
+void	action(t_args *args);
 
 #endif

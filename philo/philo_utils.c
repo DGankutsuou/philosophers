@@ -6,7 +6,7 @@
 /*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 16:21:37 by blessed           #+#    #+#             */
-/*   Updated: 2025/06/01 18:18:10 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/02 12:21:24 by blessed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,12 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (nbr * sign);
+}
+
+unsigned long	ft_current_time(void)
+{
+	unsigned long	current_time;
+
+	current_time = 0;
+	return (current_time);
 }
