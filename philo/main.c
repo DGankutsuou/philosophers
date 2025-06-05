@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/03 09:58:25 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/05 11:20:31 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void	init_philos_and_sticks(t_args **args)
 		(*args)->philos[idx].meals_counter = 0;
 		(*args)->philos[idx].last_time_eaten = 0;
 		(*args)->philos[idx].left_stick = (*args)->sticks[idx];
-		(*args)->philos[idx].right_stick = (*args)->sticks[(idx + 1) % 5];
+		(*args)->philos[idx].right_stick = (*args)->sticks[(idx + 1) % \
+		(*args)->number_of_philos];
 		idx++;
 	}
 	idx = 0;
@@ -66,7 +67,7 @@ static int	init_args(char **argv, t_args **args)
 	(*args)->someone_dead = 0;
 	(*args)->sticks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
 		* (*args)->number_of_philos);
-	(*args)->philos = (t_philo *)malloc(sizeof(pthread_mutex_t) \
+	(*args)->philos = (t_philo *)malloc(sizeof(t_philo) \
 		* (*args)->number_of_philos);
 	init_philos_and_sticks(args);
 	return (SUCCESS);
