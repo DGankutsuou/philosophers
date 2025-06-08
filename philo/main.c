@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/05 11:20:31 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/08 15:58:53 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static int	init_args(char **argv, t_args **args)
 		* (*args)->number_of_philos);
 	(*args)->philos = (t_philo *)malloc(sizeof(t_philo) \
 		* (*args)->number_of_philos);
+	(*args)->starttap = ft_current_time();
 	init_philos_and_sticks(args);
 	return (SUCCESS);
 }

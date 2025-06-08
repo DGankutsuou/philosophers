@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 16:21:37 by blessed           #+#    #+#             */
-/*   Updated: 2025/06/02 12:21:24 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/08 15:38:58 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ int	ft_atoi(const char *str)
 
 unsigned long	ft_current_time(void)
 {
-	unsigned long	current_time;
+	struct timeval	tv;
+	unsigned long	ctime;
 
-	current_time = 0;
-	return (current_time);
+	ctime = 0;
+	gettimeofday(&tv, NULL);
+	ctime = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (ctime);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/02 12:23:45 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/08 15:58:06 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,14 @@ struct s_args
 	int				minimum_meals;
 	int				someone_dead;
 	int				end_of_story;
+	unsigned long	starttap;
 	pthread_mutex_t	*sticks;
 	t_philo			*philos;
 };
 
-int		ft_isnemeric(char *s);
-int		ft_atoi(const char *str);
-void	action(t_args *args);
+int				ft_isnemeric(char *s);
+int				ft_atoi(const char *str);
+void			action(t_args *args);
+unsigned long	ft_current_time(void);
 
 #endif
