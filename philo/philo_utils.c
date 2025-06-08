@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 16:21:37 by blessed           #+#    #+#             */
-/*   Updated: 2025/06/08 15:38:58 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/08 21:16:46 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,21 @@ unsigned long	ft_current_time(void)
 	gettimeofday(&tv, NULL);
 	ctime = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (ctime);
+}
+
+int	ft_sleep(unsigned long ms, t_args *args)
+{
+	unsigned long	current;
+	unsigned long	startup;
+
+	startup = ft_current_time();
+	current = ft_current_time();
+	while (current - startup < ms)
+	{
+		usleep(100);
+		if (args->end_of_story == TRUE)
+			return (ERROR);
+		current = ft_current_time();
+	}
+	return (SUCCESS);
 }
