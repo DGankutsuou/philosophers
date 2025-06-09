@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/08 21:16:15 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/09 11:25:21 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,26 @@ static int	validate_args(char **argv)
 	return (SUCCESS);
 }
 
-static void	init_philos_and_sticks(t_args **args)
+static void	init_philos_and_sticks(t_args *args)
 {
 	int	idx;
 
 	idx = 0;
-	while (idx < (*args)->number_of_philos)
+	while (idx < args->number_of_philos)
 	{
-		(*args)->philos[idx].args = *args;
-		(*args)->philos[idx].nr = idx + 1;
-		(*args)->philos[idx].meals_counter = 0;
-		(*args)->philos[idx].last_time_eaten = 0;
-		(*args)->philos[idx].left_stick = (*args)->sticks[idx];
-		(*args)->philos[idx].right_stick = (*args)->sticks[(idx + 1) % \
-		(*args)->number_of_philos];
+		args->philos[idx].args = args;
+		args->philos[idx].nr = idx + 1;
+		args->philos[idx].meals_counter = 0;
+		args->philos[idx].last_time_eaten = args->startup;
+		args->philos[idx].left_stick = &args->sticks[idx];
+		args->philos[idx].right_stick = &args->sticks[(idx + 1) % \
+		args->number_of_philos];
 		idx++;
 	}
 	idx = 0;
-	while (idx < (*args)->number_of_philos)
+	while (idx < args->number_of_philos)
 	{
-		pthread_mutex_init(&(*args)->sticks[idx], NULL);
+		pthread_mutex_init(&args->sticks[idx], NULL);
 		idx++;
 	}
 }
@@ -70,19 +70,34 @@ static int	init_args(char **argv, t_args **args)
 	(*args)->philos = (t_philo *)malloc(sizeof(t_philo) \
 		* (*args)->number_of_philos);
 	(*args)->startup = ft_current_time();
-	init_philos_and_sticks(args);
+	init_philos_and_sticks(*args);
 	return (SUCCESS);
 }
 
-// void	*watcher_job(void *data)
-// {
+void	*watcher_job(void *data)
+{
+	int		idx;
+	t_args	*args;
 
-// }
+	args = (t_args *)data;
+	idx = 0;
+	while (1)
+	{
+		if (ft_current_time() - args->philos[idx].last_time_eaten > (size_t)args->time_to_die)
+		{
+			args->end_of_story = TRUE;
+			printf ("%ld %d died\n", ft_current_time() - args->startup, args->philos[idx].nr);
+			return (NULL);
+		}
+		idx = (idx + 1) % args->number_of_philos;
+	}
+	return (NULL);
+}
 
 int	main(int argc, char **argv)
 {
 	t_args		*args;
-	// pthread_t	watcher;
+	pthread_t	watcher;
 
 	(void)argc;
 	if (init_args(argv + 1, &args))
@@ -90,7 +105,8 @@ int	main(int argc, char **argv)
 		write (STDERR_FILENO, "error: invalid arguments\n", 26);
 		return (ERROR);
 	}
-	// pthread_create(&watcher, NULL, watcher_job, args);
+	pthread_create(&watcher, NULL, watcher_job, args);
 	action(args);
+	pthread_join(watcher, NULL);
 	return (SUCCESS);
 }

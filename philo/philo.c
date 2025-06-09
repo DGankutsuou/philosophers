@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:31 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/08 21:15:35 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/09 10:56:05 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,26 @@ static void	*left_handed_philo(t_philo *philo)
 {
 	while (TRUE)
 	{
+		int	stat;
+
+		stat = 0;
 		if (philo->args->end_of_story == TRUE)
 			return (NULL);
-		pthread_mutex_lock(&philo->left_stick);
+		pthread_mutex_lock(philo->left_stick);
 		printf ("%ld %d has taken a fork\n", ft_current_time() - philo->args->startup, philo->nr);
-		pthread_mutex_lock(&philo->right_stick);
+		pthread_mutex_lock(philo->right_stick);
 		printf ("%ld %d has taken a fork\n", ft_current_time() - philo->args->startup, philo->nr);
 		philo->last_time_eaten = ft_current_time();
 		philo->meals_counter++;
 		printf ("%ld %d is eating\n", ft_current_time() - philo->args->startup, philo->nr);
-		ft_sleep(philo->args->time_to_eat, philo->args);
-		if (philo->args->end_of_story == TRUE)
+		stat = ft_sleep(philo->args->time_to_eat, philo->args);
+		if (stat == -1 || philo->args->end_of_story == TRUE)
 			return (NULL);
-		pthread_mutex_unlock(&philo->left_stick);
-		pthread_mutex_unlock(&philo->right_stick);
+		pthread_mutex_unlock(philo->left_stick);
+		pthread_mutex_unlock(philo->right_stick);
 		printf ("%ld %d is sleeping\n", ft_current_time() - philo->args->startup, philo->nr);
-		ft_sleep(philo->args->time_to_sleep, philo->args);
-		if (philo->args->end_of_story == TRUE)
+		stat = ft_sleep(philo->args->time_to_sleep, philo->args);
+		if (stat == -1 || philo->args->end_of_story == TRUE)
 			return (NULL);
 		printf ("%ld %d is thinking\n", ft_current_time() - philo->args->startup, philo->nr);
 	}
@@ -43,23 +46,26 @@ static void	*right_handed_philo(t_philo *philo)
 {
 	while (TRUE)
 	{
+		int	stat;
+
+		stat = 0;
 		if (philo->args->end_of_story == TRUE)
 			return (NULL);
-		pthread_mutex_lock(&philo->right_stick);
+		pthread_mutex_lock(philo->right_stick);
 		printf ("%ld %d has taken a fork\n", ft_current_time() - philo->args->startup, philo->nr);
-		pthread_mutex_lock(&philo->left_stick);
+		pthread_mutex_lock(philo->left_stick);
 		printf ("%ld %d has taken a fork\n", ft_current_time() - philo->args->startup, philo->nr);
 		philo->last_time_eaten = ft_current_time();
 		philo->meals_counter++;
 		printf ("%ld %d is eating\n", ft_current_time() - philo->args->startup, philo->nr);
-		ft_sleep(philo->args->time_to_eat, philo->args);
-		if (philo->args->end_of_story == TRUE)
+		stat = ft_sleep(philo->args->time_to_eat, philo->args);
+		if (stat == -1 || philo->args->end_of_story == TRUE)
 			return (NULL);
-		pthread_mutex_unlock(&philo->left_stick);
-		pthread_mutex_unlock(&philo->right_stick);
+		pthread_mutex_unlock(philo->left_stick);
+		pthread_mutex_unlock(philo->right_stick);
 		printf ("%ld %d is sleeping\n", ft_current_time() - philo->args->startup, philo->nr);
-		ft_sleep(philo->args->time_to_sleep, philo->args);
-		if (philo->args->end_of_story == TRUE)
+		stat = ft_sleep(philo->args->time_to_sleep, philo->args);
+		if (stat == -1 || philo->args->end_of_story == TRUE)
 			return (NULL);
 		printf ("%ld %d is thinking\n", ft_current_time() - philo->args->startup, philo->nr);
 	}
