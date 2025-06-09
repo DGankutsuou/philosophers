@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/09 14:10:10 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:04:18 by blessed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,18 @@ void	*watcher_job(void *data)
 		{
 			args->end_of_story = TRUE;
 			printf ("%ld %d died\n", ft_current_time() - args->startup, args->philos[idx].nr);
-			return (NULL);
+			break ;
 		}
 		idx++;
 		if (idx == args->number_of_philos)
 			idx = 0;
+	}
+	idx = 0;
+	while (idx < args->number_of_philos)
+	{
+		pthread_mutex_unlock(args->philos[idx].left_stick);
+		pthread_mutex_unlock(args->philos[idx].right_stick);
+		idx++;
 	}
 	return (NULL);
 }
