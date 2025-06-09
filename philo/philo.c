@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:31 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/09 17:10:17 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/09 18:53:10 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ static void	*left_handed_philo(t_philo *philo)
 		int	stat;
 
 		stat = 0;
+		// usleep(100);
 		pthread_mutex_lock(philo->left_stick);
 		if (philo->args->end_of_story == TRUE)
 			break ;
 		printf ("%ld %d has taken a lfork\n", ft_current_time() - philo->args->startup, philo->nr);
+		// usleep(50);
 		pthread_mutex_lock(philo->right_stick);
 		if (philo->args->end_of_story == TRUE)
 			break ;
@@ -53,10 +55,12 @@ static void	*right_handed_philo(t_philo *philo)
 		int	stat;
 
 		stat = 0;
+		usleep(500);
 		pthread_mutex_lock(philo->right_stick);
 		if (philo->args->end_of_story == TRUE)
 			break ;
 		printf ("%ld %d has taken a rfork\n", ft_current_time() - philo->args->startup, philo->nr);
+		// usleep(50);
 		pthread_mutex_lock(philo->left_stick);
 		if (philo->args->end_of_story == TRUE)
 			break ;
