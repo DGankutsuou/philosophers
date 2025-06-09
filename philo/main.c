@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/09 11:25:21 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/09 14:10:10 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ void	*watcher_job(void *data)
 			printf ("%ld %d died\n", ft_current_time() - args->startup, args->philos[idx].nr);
 			return (NULL);
 		}
-		idx = (idx + 1) % args->number_of_philos;
+		idx++;
+		if (idx == args->number_of_philos)
+			idx = 0;
 	}
 	return (NULL);
 }
