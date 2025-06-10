@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blessed <blessed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/09 17:04:18 by blessed          ###   ########.fr       */
+/*   Updated: 2025/06/10 10:21:29 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	validate_args(char **argv)
 			return (ERROR);
 		index++;
 	}
-	if (index < 4 || index > 5 || ft_atoi(argv[0]) < 2)
+	if (index < 4 || index > 5)
 		return (ERROR);
 	return (SUCCESS);
 }
