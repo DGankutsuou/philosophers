@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:31 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/10 10:18:57 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/11 09:50:53 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	*left_handed_philo(t_philo *philo)
 		if (philo->args->end_of_story == TRUE)
 			break ;
 		printf ("%ld %d is thinking\n", ft_current_time() - philo->args->startup, philo->nr);
+		usleep (1000 * philo->args->time_to_think);
 	}
 	return (printf ("%d returned\n", philo->nr), NULL);
 }
@@ -53,7 +54,6 @@ static void	*right_handed_philo(t_philo *philo)
 		int	stat;
 
 		stat = 0;
-		usleep(500);
 		pthread_mutex_lock(philo->right_stick);
 		if (philo->args->end_of_story == TRUE)
 			break ;
@@ -77,6 +77,7 @@ static void	*right_handed_philo(t_philo *philo)
 		if (philo->args->end_of_story == TRUE)
 			break ;
 		printf ("%ld %d is thinking\n", ft_current_time() - philo->args->startup, philo->nr);
+		usleep (1000 * philo->args->time_to_think);
 	}
 	return (printf ("%d returned\n", philo->nr), NULL);
 }

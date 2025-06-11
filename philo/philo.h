@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/09 10:20:10 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/11 09:40:43 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ struct s_args
 	int				time_to_eat;
 	int				time_to_die;
 	int				time_to_sleep;
+	int				time_to_think;
 	int				minimum_meals;
 	int				someone_dead;
 	int				end_of_story;

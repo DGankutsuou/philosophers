@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/10 10:21:29 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/11 09:50:25 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static int	init_args(char **argv, t_args **args)
 	(*args)->time_to_die = ft_atoi(argv[1]);
 	(*args)->time_to_eat = ft_atoi(argv[2]);
 	(*args)->time_to_sleep = ft_atoi(argv[3]);
+	(*args)->time_to_think = ft_atoi(argv[1]) - ft_atoi(argv[2]) \
+	- ft_atoi(argv[3]);
 	(*args)->minimum_meals = -1;
 	if (argv[4] != NULL)
 		(*args)->minimum_meals = ft_atoi(argv[4]);
