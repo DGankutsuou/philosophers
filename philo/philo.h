@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/11 09:40:43 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/12 10:03:51 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_args	t_args;
 # define TRUE 1
 # define ERROR 1
 # define SUCCESS 0
+# define FAILURE -1
 
 typedef struct s_philo
 {
