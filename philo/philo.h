@@ -6,12 +6,12 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/12 10:03:51 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/14 18:10:32 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -58,5 +58,6 @@ int				ft_atoi(const char *str);
 void			action(t_args *args);
 unsigned long	ft_current_time(void);
 int				ft_sleep(unsigned long ms, t_args *args);
+void			*watcher_job(void *data);
 
 #endif

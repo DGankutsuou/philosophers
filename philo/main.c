@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/11 09:50:25 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:46:12 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,35 +74,6 @@ static int	init_args(char **argv, t_args **args)
 	(*args)->startup = ft_current_time();
 	init_philos_and_sticks(*args);
 	return (SUCCESS);
-}
-
-void	*watcher_job(void *data)
-{
-	int		idx;
-	t_args	*args;
-
-	args = (t_args *)data;
-	idx = 0;
-	while (1)
-	{
-		if (ft_current_time() - args->philos[idx].last_time_eaten > (size_t)args->time_to_die)
-		{
-			args->end_of_story = TRUE;
-			printf ("%ld %d died\n", ft_current_time() - args->startup, args->philos[idx].nr);
-			break ;
-		}
-		idx++;
-		if (idx == args->number_of_philos)
-			idx = 0;
-	}
-	idx = 0;
-	while (idx < args->number_of_philos)
-	{
-		pthread_mutex_unlock(args->philos[idx].left_stick);
-		pthread_mutex_unlock(args->philos[idx].right_stick);
-		idx++;
-	}
-	return (NULL);
 }
 
 int	main(int argc, char **argv)
