@@ -6,23 +6,23 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:46:16 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/14 18:08:09 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/15 16:51:13 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	unlocker(t_args *args)
+static void	kill_them_all(t_args *args)
 {
-	int	idx;
+	int	iter;
 
-	idx = 0;
-	while (idx < args->number_of_philos)
+	iter = 0;
+	while (iter < args->number_of_philos)
 	{
-		pthread_mutex_unlock(args->philos[idx].left_stick);
-		pthread_mutex_unlock(args->philos[idx].right_stick);
-		idx++;
+		kill(args->philos[iter].id, SIGKILL);
+		iter++;
 	}
+	sem_close(args->sem);
 }
 
 static int	is_all_finish(t_args *args)
@@ -65,7 +65,6 @@ void	*watcher_job(void *data)
 		if (idx == args->number_of_philos)
 			idx = 0;
 	}
-	args->end_of_story = TRUE;
-	unlocker(args);
+	kill_them_all(args);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/14 18:10:32 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/15 10:11:34 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <semaphore.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <signal.h>
 
 typedef struct s_args	t_args;
 
@@ -29,12 +33,10 @@ typedef struct s_args	t_args;
 
 typedef struct s_philo
 {
-	pthread_t		thread_id;
+	int				id;
 	int				nr;
 	unsigned long	last_time_eaten;
 	int				meals_counter;
-	pthread_mutex_t	*left_stick;
-	pthread_mutex_t	*right_stick;
 	t_args			*args;
 }	t_philo;
 
@@ -46,10 +48,9 @@ struct s_args
 	int				time_to_sleep;
 	int				time_to_think;
 	int				minimum_meals;
-	int				someone_dead;
 	int				end_of_story;
 	unsigned long	startup;
-	pthread_mutex_t	*sticks;
+	sem_t			*sem;
 	t_philo			*philos;
 };
 
