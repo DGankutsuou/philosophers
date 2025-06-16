@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:46:16 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/15 16:51:13 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/16 06:24:33 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	kill_them_all(t_args *args)
 		kill(args->philos[iter].id, SIGKILL);
 		iter++;
 	}
-	sem_close(args->sem);
 }
 
 static int	is_all_finish(t_args *args)
@@ -65,6 +64,7 @@ void	*watcher_job(void *data)
 		if (idx == args->number_of_philos)
 			idx = 0;
 	}
-	kill_them_all(args);
+	sem_unlink("/philo_sem");
+	// kill_them_all(args);
 	return (NULL);
 }
