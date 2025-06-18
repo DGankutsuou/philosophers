@@ -62,6 +62,17 @@ unsigned long	ft_current_time(void)
 	return (ctime);
 }
 
+unsigned long	ft_mcurrent_time(void)
+{
+	struct timeval	tv;
+	unsigned long	ctime;
+
+	ctime = 0;
+	gettimeofday(&tv, NULL);
+	ctime = tv.tv_sec * 1000000 + tv.tv_usec;
+	return (ctime);
+}
+
 int	ft_sleep(unsigned long ms, t_args *args)
 {
 	unsigned long	current;

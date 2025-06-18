@@ -45,11 +45,10 @@ void	*watcher_job(void *data)
 {
 	int		idx;
 	t_args	*args;
-	int		finishers;
 
 	args = (t_args *)data;
 	idx = 0;
-	finishers = 0;
+	args->startup = ft_current_time();
 	while (1)
 	{
 		if (is_all_finish(args) == TRUE)

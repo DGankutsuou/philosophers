@@ -111,6 +111,7 @@ void	action(t_args *args)
 		idx++;
 	}
 	idx = 0;
+	// args->startup = ft_current_time();
 	while (args->number_of_philos > idx)
 	{
 		pthread_join(args->philos[idx].thread_id, NULL);
