@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:46:16 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/21 08:34:18 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/21 16:20:40 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	*watcher_job(void *data)
 
 	args = (t_args *)data;
 	idx = 0;
-	// ft_sleep_until_start(args, e_watcher);
-	args->startup = ft_current_time();
+	ft_sleep_until_start(args, e_watcher);
+	// args->startup = ft_current_time();
 	while (1)
 	{
 		if (is_all_finish(args) == TRUE)
