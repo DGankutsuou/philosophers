@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/15 08:51:15 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/21 06:52:15 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static int	init_args(char **argv, t_args **args)
 		* (*args)->number_of_philos);
 	(*args)->startup = ft_current_time();
 	(*args)->end_of_story = FALSE;
+	(*args)->start = FALSE;
+	(*args)->philos_counter = 0;
 	init_philos_and_sticks(*args);
 	return (SUCCESS);
 }

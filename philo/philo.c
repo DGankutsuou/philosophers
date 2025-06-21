@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:31 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/14 18:10:19 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/21 08:33:49 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	*life_cycle(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
+	// ft_sleep_until_start(philo->args, e_watcher);
 	if (philo->nr % 2 == 0)
 		return (left_handed_philo(philo));
 	else
@@ -109,9 +110,9 @@ void	action(t_args *args)
 			return ;
 		}
 		idx++;
+		args->philos_counter++;
 	}
 	idx = 0;
-	// args->startup = ft_current_time();
 	while (args->number_of_philos > idx)
 	{
 		pthread_join(args->philos[idx].thread_id, NULL);

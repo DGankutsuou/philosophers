@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 16:21:37 by blessed           #+#    #+#             */
-/*   Updated: 2025/06/08 21:16:46 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/21 07:01:47 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,25 @@ unsigned long	ft_current_time(void)
 	return (ctime);
 }
 
-unsigned long	ft_mcurrent_time(void)
+void	ft_sleep_until_start(t_args *args, t_identity philo_or_watcher)
 {
-	struct timeval	tv;
-	unsigned long	ctime;
+	if (philo_or_watcher == e_watcher)
+	{
+		while (args->philos_counter < args->number_of_philos)
+		{
+			usleep(1);
+		}
+		args->startup = ft_current_time();
+		args->start = TRUE;
+	}
+	else if (philo_or_watcher == e_philo)
+	{
+		while (args->start == FALSE)
+		{
+			usleep(1);
+		}
+	}
 
-	ctime = 0;
-	gettimeofday(&tv, NULL);
-	ctime = tv.tv_sec * 1000000 + tv.tv_usec;
-	return (ctime);
 }
 
 int	ft_sleep(unsigned long ms, t_args *args)
@@ -82,7 +92,7 @@ int	ft_sleep(unsigned long ms, t_args *args)
 	current = ft_current_time();
 	while (current - startup < ms)
 	{
-		usleep(100);
+		usleep(1);
 		if (args->end_of_story == TRUE)
 			return (ERROR);
 		current = ft_current_time();

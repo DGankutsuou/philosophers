@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/14 18:10:32 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/21 07:00:29 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ typedef struct s_args	t_args;
 # define SUCCESS 0
 # define FAILURE -1
 
+typedef enum e_identity
+{
+	e_watcher,
+	e_philo
+}	t_identity;
+
 typedef struct s_philo
 {
 	pthread_t		thread_id;
@@ -41,6 +47,7 @@ typedef struct s_philo
 struct s_args
 {
 	int				number_of_philos;
+	int				philos_counter;
 	int				time_to_eat;
 	int				time_to_die;
 	int				time_to_sleep;
@@ -48,6 +55,7 @@ struct s_args
 	int				minimum_meals;
 	int				someone_dead;
 	int				end_of_story;
+	int				start;
 	unsigned long	startup;
 	pthread_mutex_t	*sticks;
 	t_philo			*philos;
@@ -59,5 +67,6 @@ void			action(t_args *args);
 unsigned long	ft_current_time(void);
 int				ft_sleep(unsigned long ms, t_args *args);
 void			*watcher_job(void *data);
+void			ft_sleep_until_start(t_args *args, t_identity philo_or_watcher);
 
 #endif
