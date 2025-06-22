@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:31 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/21 16:20:50 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/22 07:05:42 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,29 @@ static void	*left_handed_philo(t_philo *philo)
 	while (TRUE)
 	{
 		pthread_mutex_lock(philo->left_stick);
+		pthread_mutex_lock(&philo->args->end);
 		if (philo->args->end_of_story == TRUE)
 			break ;
+		pthread_mutex_unlock(&philo->args->end);
 		printf ("%ld %d has taken a lfork\n", ft_current_time() - \
 		philo->args->startup, philo->nr);
 		pthread_mutex_lock(philo->right_stick);
+		pthread_mutex_lock(&philo->args->end);
 		if (philo->args->end_of_story == TRUE)
 			break ;
+		pthread_mutex_unlock(&philo->args->end);
 		printf ("%ld %d has taken a rfork\n", ft_current_time() - \
 		philo->args->startup, philo->nr);
+		pthread_mutex_lock(&philo->args->lteat);
 		philo->last_time_eaten = ft_current_time();
+		pthread_mutex_unlock(&philo->args->lteat);
+		pthread_mutex_lock(&philo->args->mcounter);
 		philo->meals_counter++;
+		pthread_mutex_unlock(&philo->args->mcounter);
+		pthread_mutex_lock(&philo->args->end);
 		if (philo->args->end_of_story == TRUE)
 			break ;
+		pthread_mutex_unlock(&philo->args->end);
 		if (eat_sleep_think(philo) == FAILURE)
 			break ;
 	}
@@ -64,19 +74,29 @@ static void	*right_handed_philo(t_philo *philo)
 	while (TRUE)
 	{
 		pthread_mutex_lock(philo->right_stick);
+		pthread_mutex_lock(&philo->args->end);
 		if (philo->args->end_of_story == TRUE)
 			break ;
+		pthread_mutex_unlock(&philo->args->end);
 		printf ("%ld %d has taken a rfork\n", ft_current_time() - \
 		philo->args->startup, philo->nr);
 		pthread_mutex_lock(philo->left_stick);
+		pthread_mutex_lock(&philo->args->end);
 		if (philo->args->end_of_story == TRUE)
 			break ;
+		pthread_mutex_unlock(&philo->args->end);
 		printf ("%ld %d has taken a lfork\n", ft_current_time() - \
 		philo->args->startup, philo->nr);
+		pthread_mutex_lock(&philo->args->lteat);
 		philo->last_time_eaten = ft_current_time();
+		pthread_mutex_unlock(&philo->args->lteat);
+		pthread_mutex_lock(&philo->args->mcounter);
 		philo->meals_counter++;
+		pthread_mutex_unlock(&philo->args->mcounter);
+		pthread_mutex_lock(&philo->args->end);
 		if (philo->args->end_of_story == TRUE)
 			break ;
+		pthread_mutex_unlock(&philo->args->end);
 		if (eat_sleep_think(philo) == FAILURE)
 			break ;
 	}

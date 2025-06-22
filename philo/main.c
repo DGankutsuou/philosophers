@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/21 06:52:15 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/22 07:00:15 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ static void	init_philos_and_sticks(t_args *args)
 		pthread_mutex_init(&args->sticks[idx], NULL);
 		idx++;
 	}
+	pthread_mutex_init(&args->end, NULL);
+	pthread_mutex_init(&args->mcounter, NULL);
+	pthread_mutex_init(&args->lteat, NULL);
 }
 
 static int	init_args(char **argv, t_args **args)

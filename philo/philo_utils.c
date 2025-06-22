@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 16:21:37 by blessed           #+#    #+#             */
-/*   Updated: 2025/06/21 07:01:47 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/22 06:53:43 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,10 @@ int	ft_sleep(unsigned long ms, t_args *args)
 	while (current - startup < ms)
 	{
 		usleep(1);
+		pthread_mutex_lock(&args->end);
 		if (args->end_of_story == TRUE)
 			return (ERROR);
+		pthread_mutex_unlock(&args->end);
 		current = ft_current_time();
 	}
 	return (SUCCESS);

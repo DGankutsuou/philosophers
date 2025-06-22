@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:46:16 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/21 16:49:26 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/22 07:02:36 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static void	unlocker(t_args *args)
 	int	idx;
 
 	idx = 0;
+	pthread_mutex_lock(&args->end);
+	args->end_of_story = TRUE;
+	pthread_mutex_unlock(&args->end);
 	while (idx < args->number_of_philos)
 	{
 		pthread_mutex_unlock(args->philos[idx].left_stick);
@@ -34,8 +37,10 @@ static int	is_all_finish(t_args *args)
 	idx = 0;
 	while (idx < args->number_of_philos)
 	{
+		pthread_mutex_lock(&args->mcounter);
 		if (args->philos[idx].meals_counter < args->minimum_meals)
 			return (FALSE);
+		pthread_mutex_unlock(&args->mcounter);
 		idx++;
 	}
 	return (TRUE);
@@ -54,18 +59,19 @@ void	*watcher_job(void *data)
 	{
 		if (is_all_finish(args) == TRUE)
 			break ;
+		pthread_mutex_lock(&args->lteat);
 		if (ft_current_time() - args->philos[idx].last_time_eaten \
 		> (size_t)args->time_to_die)
 		{
 			printf ("%ld %d died\n", ft_current_time() - \
 			args->startup, args->philos[idx].nr);
+			pthread_mutex_unlock(&args->lteat);
 			break ;
 		}
 		idx++;
 		if (idx == args->number_of_philos)
 			idx = 0;
 	}
-	args->end_of_story = TRUE;
 	unlocker(args);
 	return (NULL);
 }
