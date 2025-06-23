@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g3
 
-SRC = philo_utils.c philo.c main.c watcher.c
+SRC = philo_utils.c philo.c main.c watcher.c ft_printf.c
 
 NAME = philo
 

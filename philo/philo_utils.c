@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 16:21:37 by blessed           #+#    #+#             */
-/*   Updated: 2025/06/22 06:53:43 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/23 09:19:10 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,20 @@ void	ft_sleep_until_start(t_args *args, t_identity philo_or_watcher)
 {
 	if (philo_or_watcher == e_watcher)
 	{
+		pthread_mutex_lock(&args->phcounter);
 		while (args->philos_counter < args->number_of_philos)
 		{
+			pthread_mutex_unlock(&args->phcounter);
 			usleep(1);
+			pthread_mutex_lock(&args->phcounter);
 		}
+		pthread_mutex_unlock(&args->phcounter);
+		pthread_mutex_lock(&args->strup);
 		args->startup = ft_current_time();
+		pthread_mutex_unlock(&args->strup);
+		pthread_mutex_lock(&args->start_mutex);
 		args->start = TRUE;
+		pthread_mutex_unlock(&args->start_mutex);
 	}
 	else if (philo_or_watcher == e_philo)
 	{
@@ -95,7 +103,7 @@ int	ft_sleep(unsigned long ms, t_args *args)
 		usleep(1);
 		pthread_mutex_lock(&args->end);
 		if (args->end_of_story == TRUE)
-			return (ERROR);
+			return (pthread_mutex_unlock(&args->end), ERROR);
 		pthread_mutex_unlock(&args->end);
 		current = ft_current_time();
 	}

@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/22 06:59:51 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/23 09:49:29 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ struct s_args
 	pthread_mutex_t	*sticks;
 	pthread_mutex_t	end;
 	pthread_mutex_t	mcounter;
+	pthread_mutex_t	phcounter;
 	pthread_mutex_t	lteat;
+	pthread_mutex_t	strup;
+	pthread_mutex_t	start_mutex;
 	t_philo			*philos;
 };
 
@@ -71,5 +74,6 @@ unsigned long	ft_current_time(void);
 int				ft_sleep(unsigned long ms, t_args *args);
 void			*watcher_job(void *data);
 void			ft_sleep_until_start(t_args *args, t_identity philo_or_watcher);
+int				ft_printf(t_philo *philo, char *str);
 
 #endif

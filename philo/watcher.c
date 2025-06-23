@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:46:16 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/22 07:02:36 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/23 09:56:55 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@ static void	unlocker(t_args *args)
 	pthread_mutex_lock(&args->end);
 	args->end_of_story = TRUE;
 	pthread_mutex_unlock(&args->end);
-	while (idx < args->number_of_philos)
-	{
-		pthread_mutex_unlock(args->philos[idx].left_stick);
-		pthread_mutex_unlock(args->philos[idx].right_stick);
-		idx++;
-	}
 }
 
 static int	is_all_finish(t_args *args)
@@ -63,11 +57,13 @@ void	*watcher_job(void *data)
 		if (ft_current_time() - args->philos[idx].last_time_eaten \
 		> (size_t)args->time_to_die)
 		{
-			printf ("%ld %d died\n", ft_current_time() - \
-			args->startup, args->philos[idx].nr);
+			pthread_mutex_lock(&args->strup);
+			ft_printf (&args->philos[idx], "died");
+			pthread_mutex_unlock(&args->strup);
 			pthread_mutex_unlock(&args->lteat);
 			break ;
 		}
+		pthread_mutex_unlock(&args->lteat);
 		idx++;
 		if (idx == args->number_of_philos)
 			idx = 0;
