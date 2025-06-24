@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:31 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/24 10:10:31 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:26:22 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ static void	*right_handed_philo(t_philo *philo)
 	// usleep(2000);
 	while (TRUE)
 	{
-		usleep(9000);
+		usleep(2000);
 		pthread_mutex_lock(philo->right_stick);
 		pthread_mutex_lock(&philo->args->end);
 		if (philo->args->end_of_story == TRUE)
