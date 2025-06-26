@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 16:21:37 by blessed           #+#    #+#             */
-/*   Updated: 2025/06/23 09:19:10 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/26 09:09:40 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,14 @@ void	ft_sleep_until_start(t_args *args, t_identity philo_or_watcher)
 	}
 	else if (philo_or_watcher == e_philo)
 	{
+		pthread_mutex_lock(&args->start_mutex);
 		while (args->start == FALSE)
 		{
+			pthread_mutex_unlock(&args->start_mutex);
 			usleep(1);
+			pthread_mutex_lock(&args->start_mutex);
 		}
+		pthread_mutex_unlock(&args->start_mutex);
 	}
 
 }

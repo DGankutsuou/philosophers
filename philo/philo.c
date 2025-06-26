@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:31 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/24 15:26:22 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/26 09:44:56 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ static void	*left_handed_philo(t_philo *philo)
 		pthread_mutex_lock(&philo->args->lteat);
 		philo->last_time_eaten = ft_current_time();
 		pthread_mutex_unlock(&philo->args->lteat);
-		pthread_mutex_lock(&philo->args->mcounter);
+		pthread_mutex_lock(&philo->mcounter);
 		philo->meals_counter++;
-		pthread_mutex_unlock(&philo->args->mcounter);
+		pthread_mutex_unlock(&philo->mcounter);
 		pthread_mutex_lock(&philo->args->end);
 
 		if (philo->args->end_of_story == TRUE)
@@ -121,7 +121,7 @@ static void	*right_handed_philo(t_philo *philo)
 	// usleep(2000);
 	while (TRUE)
 	{
-		usleep(2000);
+		usleep(1000);
 		pthread_mutex_lock(philo->right_stick);
 		pthread_mutex_lock(&philo->args->end);
 		if (philo->args->end_of_story == TRUE)
@@ -150,9 +150,9 @@ static void	*right_handed_philo(t_philo *philo)
 		pthread_mutex_lock(&philo->args->lteat);
 		philo->last_time_eaten = ft_current_time();
 		pthread_mutex_unlock(&philo->args->lteat);
-		pthread_mutex_lock(&philo->args->mcounter);
+		pthread_mutex_lock(&philo->mcounter);
 		philo->meals_counter++;
-		pthread_mutex_unlock(&philo->args->mcounter);
+		pthread_mutex_unlock(&philo->mcounter);
 		pthread_mutex_lock(&philo->args->end);
 		if (philo->args->end_of_story == TRUE)
 		{

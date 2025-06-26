@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/23 09:49:29 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/26 09:42:09 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_philo
 	int				meals_counter;
 	pthread_mutex_t	*left_stick;
 	pthread_mutex_t	*right_stick;
+	pthread_mutex_t	mcounter;
 	t_args			*args;
 }	t_philo;
 
@@ -59,7 +60,6 @@ struct s_args
 	unsigned long	startup;
 	pthread_mutex_t	*sticks;
 	pthread_mutex_t	end;
-	pthread_mutex_t	mcounter;
 	pthread_mutex_t	phcounter;
 	pthread_mutex_t	lteat;
 	pthread_mutex_t	strup;

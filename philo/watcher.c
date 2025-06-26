@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:46:16 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/23 09:56:55 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/26 09:41:39 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static int	is_all_finish(t_args *args)
 	idx = 0;
 	while (idx < args->number_of_philos)
 	{
-		pthread_mutex_lock(&args->mcounter);
+		pthread_mutex_lock(&args->philos[idx].mcounter);
 		if (args->philos[idx].meals_counter < args->minimum_meals)
 			return (FALSE);
-		pthread_mutex_unlock(&args->mcounter);
+		pthread_mutex_unlock(&args->philos[idx].mcounter);
 		idx++;
 	}
 	return (TRUE);
