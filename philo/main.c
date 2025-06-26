@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/26 09:46:57 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/26 14:20:00 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void	init_philos_and_sticks(t_args *args)
 		args->philos[idx].right_stick = &args->sticks[(idx + 1) % \
 		args->number_of_philos];
 		pthread_mutex_init(&args->philos[idx].mcounter, NULL);
+		pthread_mutex_init(&args->philos[idx].lteat, NULL);
 		idx++;
 	}
 	idx = 0;
@@ -52,7 +53,6 @@ static void	init_philos_and_sticks(t_args *args)
 		idx++;
 	}
 	pthread_mutex_init(&args->end, NULL);
-	pthread_mutex_init(&args->lteat, NULL);
 	pthread_mutex_init(&args->strup, NULL);
 	pthread_mutex_init(&args->start_mutex, NULL);
 	pthread_mutex_init(&args->phcounter, NULL);

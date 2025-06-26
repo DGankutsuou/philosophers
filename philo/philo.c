@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:31 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/26 09:44:56 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:55:20 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ static	int	eat_sleep_think(t_philo *philo)
 	int	stat;
 
 	stat = 0;
-	pthread_mutex_lock(&philo->args->strup);
 	ft_printf (philo, "is eating");
-	pthread_mutex_unlock(&philo->args->strup);
 
 	stat = ft_sleep(philo->args->time_to_eat, philo->args);
 	pthread_mutex_unlock(philo->left_stick);
@@ -30,9 +28,7 @@ static	int	eat_sleep_think(t_philo *philo)
 		return (pthread_mutex_unlock(&philo->args->end), -1);
 	pthread_mutex_unlock(&philo->args->end);
 
-	pthread_mutex_lock(&philo->args->strup);
 	ft_printf (philo, "is sleeping");
-	pthread_mutex_unlock(&philo->args->strup);
 
 	stat = ft_sleep(philo->args->time_to_sleep, philo->args);
 
@@ -41,11 +37,9 @@ static	int	eat_sleep_think(t_philo *philo)
 		return (pthread_mutex_unlock(&philo->args->end), -1);
 	pthread_mutex_unlock(&philo->args->end);
 
-	pthread_mutex_lock(&philo->args->strup);
 	ft_printf (philo, "is thinking");
-	pthread_mutex_unlock(&philo->args->strup);
 
-	stat = ft_sleep (philo->args->time_to_think - 10, philo->args);
+	stat = ft_sleep (philo->args->time_to_think - 1 * philo->args->number_of_philos, philo->args);
 	return (stat);
 }
 
@@ -75,9 +69,7 @@ static void	*left_handed_philo(t_philo *philo)
 		}
 
 		pthread_mutex_unlock(&philo->args->end);
-		pthread_mutex_lock(&philo->args->strup);
 		ft_printf (philo, "has taken a lfork");
-		pthread_mutex_unlock(&philo->args->strup);
 		pthread_mutex_lock(philo->right_stick);
 		pthread_mutex_lock(&philo->args->end);
 
@@ -90,12 +82,10 @@ static void	*left_handed_philo(t_philo *philo)
 		}
 
 		pthread_mutex_unlock(&philo->args->end);
-		pthread_mutex_lock(&philo->args->strup);
 		ft_printf (philo, "has taken a rfork");
-		pthread_mutex_unlock(&philo->args->strup);
-		pthread_mutex_lock(&philo->args->lteat);
+		pthread_mutex_lock(&philo->lteat);
 		philo->last_time_eaten = ft_current_time();
-		pthread_mutex_unlock(&philo->args->lteat);
+		pthread_mutex_unlock(&philo->lteat);
 		pthread_mutex_lock(&philo->mcounter);
 		philo->meals_counter++;
 		pthread_mutex_unlock(&philo->mcounter);
@@ -113,7 +103,7 @@ static void	*left_handed_philo(t_philo *philo)
 		if (eat_sleep_think(philo) == FAILURE)
 			break ;
 	}
-	return (printf ("%d returned\n", philo->nr), NULL);
+	return (NULL);
 }
 
 static void	*right_handed_philo(t_philo *philo)
@@ -121,7 +111,7 @@ static void	*right_handed_philo(t_philo *philo)
 	// usleep(2000);
 	while (TRUE)
 	{
-		usleep(1000);
+		usleep(10 * philo->args->number_of_philos);
 		pthread_mutex_lock(philo->right_stick);
 		pthread_mutex_lock(&philo->args->end);
 		if (philo->args->end_of_story == TRUE)
@@ -131,9 +121,7 @@ static void	*right_handed_philo(t_philo *philo)
 			break ;
 		}
 		pthread_mutex_unlock(&philo->args->end);
-		pthread_mutex_lock(&philo->args->strup);
 		ft_printf (philo, "has taken a rfork");
-		pthread_mutex_unlock(&philo->args->strup);
 		pthread_mutex_lock(philo->left_stick);
 		pthread_mutex_lock(&philo->args->end);
 		if (philo->args->end_of_story == TRUE)
@@ -144,12 +132,10 @@ static void	*right_handed_philo(t_philo *philo)
 			break ;
 		}
 		pthread_mutex_unlock(&philo->args->end);
-		pthread_mutex_lock(&philo->args->strup);
 		ft_printf (philo, "has taken a lfork");
-		pthread_mutex_unlock(&philo->args->strup);
-		pthread_mutex_lock(&philo->args->lteat);
+		pthread_mutex_lock(&philo->lteat);
 		philo->last_time_eaten = ft_current_time();
-		pthread_mutex_unlock(&philo->args->lteat);
+		pthread_mutex_unlock(&philo->lteat);
 		pthread_mutex_lock(&philo->mcounter);
 		philo->meals_counter++;
 		pthread_mutex_unlock(&philo->mcounter);
@@ -165,7 +151,7 @@ static void	*right_handed_philo(t_philo *philo)
 		if (eat_sleep_think(philo) == FAILURE)
 			break ;
 	}
-	return (printf ("%d returned\n", philo->nr), NULL);
+	return (NULL);
 }
 
 void	*life_cycle(void *data)
@@ -173,7 +159,10 @@ void	*life_cycle(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	ft_sleep_until_start(philo->args, e_watcher);
+	ft_sleep_until_start(philo->args, e_philo);
+	pthread_mutex_lock(&philo->lteat);
+	philo->last_time_eaten = ft_current_time();
+	pthread_mutex_unlock(&philo->lteat);
 	if (philo->nr % 2 == 0)
 		return (left_handed_philo(philo));
 	else

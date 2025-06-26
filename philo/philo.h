@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:34 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/26 09:42:09 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/26 14:19:37 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_philo
 	pthread_mutex_t	*left_stick;
 	pthread_mutex_t	*right_stick;
 	pthread_mutex_t	mcounter;
+	pthread_mutex_t	lteat;
 	t_args			*args;
 }	t_philo;
 
@@ -61,7 +62,6 @@ struct s_args
 	pthread_mutex_t	*sticks;
 	pthread_mutex_t	end;
 	pthread_mutex_t	phcounter;
-	pthread_mutex_t	lteat;
 	pthread_mutex_t	strup;
 	pthread_mutex_t	start_mutex;
 	t_philo			*philos;
