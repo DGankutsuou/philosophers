@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:46:16 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/26 15:56:31 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/27 12:58:41 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static void	unlocker(t_args *args)
 	pthread_mutex_lock(&args->end);
 	args->end_of_story = TRUE;
 	pthread_mutex_unlock(&args->end);
-	if (args->number_of_philos == 1)
-		pthread_mutex_unlock(args->philos[0].right_stick);
 }
 
 static int	is_all_finish(t_args *args)
