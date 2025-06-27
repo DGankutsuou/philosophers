@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 16:21:37 by blessed           #+#    #+#             */
-/*   Updated: 2025/06/26 09:09:40 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/27 18:02:37 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,6 @@ void	ft_sleep_until_start(t_args *args, t_identity philo_or_watcher)
 {
 	if (philo_or_watcher == e_watcher)
 	{
-		pthread_mutex_lock(&args->phcounter);
-		while (args->philos_counter < args->number_of_philos)
-		{
-			pthread_mutex_unlock(&args->phcounter);
-			usleep(1);
-			pthread_mutex_lock(&args->phcounter);
-		}
-		pthread_mutex_unlock(&args->phcounter);
 		pthread_mutex_lock(&args->strup);
 		args->startup = ft_current_time();
 		pthread_mutex_unlock(&args->strup);

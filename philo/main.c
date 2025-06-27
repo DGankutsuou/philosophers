@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:23 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/26 14:20:00 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/27 17:32:20 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	init_args(char **argv, t_args **args)
 int	main(int argc, char **argv)
 {
 	t_args		*args;
-	pthread_t	watcher;
+	// pthread_t	watcher;
 
 	(void)argc;
 	if (init_args(argv + 1, &args))
@@ -96,8 +96,8 @@ int	main(int argc, char **argv)
 		write (STDERR_FILENO, "error: invalid arguments\n", 26);
 		return (ERROR);
 	}
-	pthread_create(&watcher, NULL, watcher_job, args);
+	// pthread_create(&watcher, NULL, watcher_job, args);
 	action(args);
-	pthread_join(watcher, NULL);
+	// pthread_join(watcher, NULL);
 	return (SUCCESS);
 }
