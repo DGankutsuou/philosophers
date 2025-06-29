@@ -6,7 +6,7 @@
 /*   By: aabouriz <aabouriz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 09:05:31 by aabouriz          #+#    #+#             */
-/*   Updated: 2025/06/27 18:46:26 by aabouriz         ###   ########.fr       */
+/*   Updated: 2025/06/29 18:38:26 by aabouriz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static	int	eat_sleep_think(t_philo *philo)
 
 	ft_printf (philo, "is thinking");
 
-	stat = ft_sleep (philo->args->time_to_think, philo->args);
+	// stat = ft_sleep (philo->args->time_to_think, philo->args);
 	// stat = ft_sleep (philo->args->time_to_think - 10, philo->args);
 	return (stat);
 }
@@ -112,7 +112,7 @@ static void	*right_handed_philo(t_philo *philo)
 	int	stat;
 
 	stat = 0;
-	// usleep(2000);
+	usleep(100);
 	while (TRUE)
 	{
 		// usleep(100);
